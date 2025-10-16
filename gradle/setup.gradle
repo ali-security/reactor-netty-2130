@@ -33,6 +33,9 @@ task javadocJar(type: Jar) {
 }
 
 static def qualifyVersion(String v) {
+	// Handle +sp\d+ pattern (service pack) as RELEASE versions
+	if (v.matches(/.*\+sp\d+$/)) return "RELEASE"
+
 	def versionNumber = VersionNumber.parse(v)
 
 	if (versionNumber == VersionNumber.UNKNOWN) return "BAD";
